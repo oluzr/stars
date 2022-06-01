@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style type="text/css">
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            /* overflow: hidden; */
+        }
+
+        #myCanvas {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background-color: #fff;
+        }
+    </style>
+    <title>stars</title>
+</head>
+
+<body>
+
+    <canvas id="myCanvas"></canvas>
+
+
+    <script src="js/howler.core.js"></script>
+    <script src="js/paper-full.js"></script>
+    <script type="text/paperscript" canvas="myCanvas">
+
+    var stars = [];
+    var velocity = 2;
+    var generateRate = 150 
+    var newRandom;
+    
+    function randomInt(min,max)
+    {
+    return Math.floor(Math.random()*(max-min+1)+min);
+    }
+    
+    for(var i = 0; i <= 3000; i++) {
+    var star = new Path.Circle(new Point(view.size.width, view.size.height) * Point.random(), randomInt(0.5, 2))
+    stars.push(star)
+    }
+    
+    
+    for(var i = 0; i < stars.length; i++) {
+    var chance = Math.random()
+    
+    if(chance < 0.2) {
+        stars[i].fillColor = "salmon";
+    }
+    
+    else if(chance < 0.6) {
+        stars[i].fillColor = "skyblue";
+    }
+    
+    else {
+        stars[i].fillColor =  "yellow";
+    }
+    }
+    
+    
+    for(var i = 0; i < stars.length; i++) {
+    var assignedRate = Math.random() * velocity + 0.1
+    stars[i].rate = assignedRate;
+    }
+    
+    function onKeyDown(event) {
+    
+    if(event.key == 'd') {
+        velocity += 1
+        for(var i = 0; i < stars.length; i++) {
+        var assignedRate = Math.random() * velocity + 0.1
+        stars[i].rate = assignedRate;
+    
+        }
+    }
+    
+    
+    else if(event.key == 'a') {
+        velocity -= 1
+        for(var i = 0; i < stars.length; i++) {
+        var assignedRate = Math.random() * velocity + 0.1
+        stars[i].rate = assignedRate;
+        }
+    }
+    
+    }
+    
+    
+    function onFrame(event) {
+    for(var i = 0; i < stars.length; i++) {
+        stars[i].translate(stars[i].rate, 0)
+        if(stars[i].position.x > view.size.width) {
+                stars[i].position.x = 0;
+    }
+    
+    else if(stars[i].position.x < 0) {
+        stars[i].position.x = view.size.width;
+    }
+    
+    
+    }
+    
+    }
+    </script>
+
+</body>
+
+</html>
