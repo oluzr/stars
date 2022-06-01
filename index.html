@@ -36,7 +36,7 @@
     <script type="text/paperscript" canvas="myCanvas">
 
     var stars = [];
-    var velocity = 2;
+    var velocity = 1;
     var generateRate = 150 
     var newRandom;
     
@@ -45,7 +45,7 @@
     return Math.floor(Math.random()*(max-min+1)+min);
     }
     
-    for(var i = 0; i <= 3000; i++) {
+    for(var i = 0; i <= 2000; i++) {
     var star = new Path.Circle(new Point(view.size.width, view.size.height) * Point.random(), randomInt(0.5, 2))
     stars.push(star)
     }
@@ -58,12 +58,12 @@
         stars[i].fillColor = "salmon";
     }
     
-    else if(chance < 0.6) {
-        stars[i].fillColor = "skyblue";
+    else if(chance < 0.5) {
+        stars[i].fillColor = "red";
     }
     
     else {
-        stars[i].fillColor =  "yellow";
+        stars[i].fillColor =  "green";
     }
     }
     
